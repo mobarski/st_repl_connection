@@ -22,3 +22,4 @@ elif prompt:
     with st.chat_message('assistant'):
         st.markdown(resp)
         ss.history.append({'role': 'assistant', 'content': resp})
+

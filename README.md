@@ -1,12 +1,16 @@
 # Streamlit ReplConnection
 
-Connect to any local REPL application from your Streamlit app.
+Connect to local REPL applications from your Streamlit app.
 
 For example you can control [llama.cpp](https://github.com/ggerganov/llama.cpp) session from your app!
 
 
 
-**TODO**
+## Installation
+
+```
+pip install git+https://github.com/mobarski/st_repl_connection
+```
 
 
 
@@ -44,7 +48,7 @@ import streamlit as st
 ss = st.session_state
 
 from st_repl_connection import ReplConnection
-model = st.experimental_connection("repl_llama_cpp_hermes", type=ReplConnection)
+model = st.experimental_connection("llama_cpp_hermes", type=ReplConnection)
 
 if 'history' not in ss:
     ss.history = []
