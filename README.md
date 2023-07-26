@@ -4,7 +4,7 @@ Connect to local REPL applications from your Streamlit app.
 
 For example you can control [llama.cpp](https://github.com/ggerganov/llama.cpp) session from your app!
 
-
+Why connect in this way and not via wrapper like [llama-cpp-python](https://github.com/abetlen/llama-cpp-python)? Well, you don't have to wait for the wrapper update and can use ALL the newest features.
 
 ![screenshot](static/screenshot1.png)
 
