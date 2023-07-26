@@ -6,6 +6,10 @@ For example you can control [llama.cpp](https://github.com/ggerganov/llama.cpp) 
 
 
 
+![screenshot](static/screenshot1.png)
+
+
+
 ## Installation
 
 ```
