@@ -89,9 +89,9 @@ elif prompt:
 ```python
 from st_repl_connection import ReplController
 
-with ReplController('/opt/llama.cpp/main -m ggml-Hermes-2-step2559-q4_K_M.bin -ins -ngl 100', '> ') as llama:
-    print(llama.send('Compare Linux and MacOS.'))
-    print(llama.send('What is the capital of Assyria?'))
+with ReplController('python3 -i', '>>> ') as py:
+    print(py.send('6 * 7'))
+    print(py.send('128 + 2**7'))
 ```
 
 
