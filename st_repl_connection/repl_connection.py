@@ -4,6 +4,7 @@ import os
 
 from . repl_controller import ReplController
 
+# REF: https://docs.streamlit.io/library/api-reference/connections/st.experimental_connection
 # REF: https://docs.streamlit.io/library/advanced-features/connecting-to-data
 # REF: https://experimental-connection.streamlit.app/Build_your_own
 # REF: https://github.com/streamlit/files-connection
@@ -24,13 +25,14 @@ class ReplConnection(ExperimentalBaseConnection):
         kw = kwargs.copy()
         for k in CONTROLLER_OPTIONS:
             if k in kw: continue
-            if k in os.environ:
-                kw[k] = os.environ[k]
+            k_env = f'{self._connection_name}_{k}'
+            if k_env in os.environ:
+                kw[k] = os.environ[k_env]
             elif k in self._secrets:
                 kw[k] = self._secrets[k]
         return ReplController(**kw)
 
-    def query(self, query, ttl=3600, **kwargs):
+    def query(self, query, ttl=None, **kwargs):
         @st.cache_data(ttl=ttl)
         def _query(query: str, **kwargs):
             return self._send(query, **kwargs)

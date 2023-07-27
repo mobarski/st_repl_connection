@@ -12,13 +12,14 @@ for msg in ss.history:
     
 prompt = st.chat_input('Your message or /clear')
 if prompt == '/clear':
+    model.reset()
     ss.history = []
     st.experimental_rerun()
 elif prompt:
     with st.chat_message('user'):
         st.markdown(prompt)
         ss.history.append({'role': 'user', 'content': prompt})
-    resp = model.query(prompt)
+    resp = model.query(prompt, ttl=0)
     with st.chat_message('assistant'):
         st.markdown(resp)
         ss.history.append({'role': 'assistant', 'content': resp})
