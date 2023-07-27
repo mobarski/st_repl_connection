@@ -1,6 +1,6 @@
 import setuptools
 
-VERSION = "0.1.3"
+VERSION = "0.1.4"
 
 NAME = "st_repl_connection"
 
