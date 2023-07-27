@@ -1,5 +1,6 @@
 from streamlit.connections import ExperimentalBaseConnection
 import streamlit as st
+import os
 
 from . repl_controler import ReplControler
 
@@ -7,20 +8,27 @@ from . repl_controler import ReplControler
 # REF: https://experimental-connection.streamlit.app/Build_your_own
 # REF: https://github.com/streamlit/files-connection
 
-# TODO: kwargs from env ???
 # TODO: pass additional CLI params
 # TODO: option: ignore cache
+
+CONTROLLER_OPTIONS = ['command', 'prompt', 'encoding']
+
+# PARAMETERS PRIORITIES:
+# 1. function kwargs
+# 2. environment variables
+# 3. secrets.toml
 
 class ReplConnection(ExperimentalBaseConnection):
 
     def _connect(self, **kwargs):
-        kw = {}
-        for k in ['command', 'prompt', 'encoding']:
-            if k in kwargs:
-                kw[k] = kwargs.pop(k)
-            else:
-                kw[k] = self._secrets.get(k)
-        return ReplControler(**kw, **kwargs)
+        kw = kwargs.copy()
+        for k in CONTROLLER_OPTIONS:
+            if k in kw: continue
+            if k in os.environ:
+                kw[k] = os.environ[k]
+            elif k in self._secrets:
+                kw[k] = self._secrets[k]
+        return ReplControler(**kw)
 
     def query(self, query, ttl=3600, **kwargs):
         @st.cache_data(ttl=ttl)

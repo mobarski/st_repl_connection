@@ -1,10 +1,14 @@
 # Streamlit ReplConnection
 
-Connect to local REPL applications from your Streamlit app.
+Connect to local REPL applications from your [Streamlit](https://streamlit.io/) app.
 
 For example you can control [llama.cpp](https://github.com/ggerganov/llama.cpp) session from your app!
 
-Why connect in this way and not via wrapper like [llama-cpp-python](https://github.com/abetlen/llama-cpp-python)? Well, you don't have to wait for the wrapper update and can use ALL the newest features.
+Why connect in this way and not via wrapper like [llama-cpp-python](https://github.com/abetlen/llama-cpp-python)?
+
+- You don't have to wait for the wrapper update and can use the newest features.
+- You can run in on machines without a c/cpp compiler.
+- It's easier to deploy.
 
 ![screenshot](static/screenshot1.png)
 
@@ -18,17 +22,7 @@ pip install git+https://github.com/mobarski/st_repl_connection
 
 
 
-## Examples
-
-
-
-##### ~/.streamlit/secrets.toml
-
-```
-[connections.llama_cpp_hermes]
-command = "/usr/local/bin/llama_cpp_main -m /opt/models/ggml-Hermes-2-step2559-q4_K_M.bin -ins -ngl 100"
-prompt = "> "
-```
+## Usage Examples
 
 
 
@@ -74,7 +68,7 @@ elif prompt:
         ss.history.append({'role': 'assistant', 'content': resp})
 ```
 
-##### example questions
+###### example questions
 
 ```
 - What is your name?
@@ -86,5 +80,31 @@ elif prompt:
 - Show example of a markdown table.
 - Count frequency of words in a file using python.
 - Compare PbtA and FitD.
+```
+
+
+
+##### Usage without stramlit
+
+```python
+from st_repl_connection import ReplController
+
+with ReplController('/opt/llama.cpp/main -m ggml-Hermes-2-step2559-q4_K_M.bin -ins -ngl 100', '> ') as llama:
+    print(llama.send('Compare Linux and MacOS.'))
+    print(llama.send('What is the capital of Assyria?'))
+```
+
+
+
+## Configuration examples
+
+TODO: ~/.streamlit/secrets.toml
+
+##### llama.cpp running the Hermes model on a GPU
+
+```
+[connections.llama_cpp_hermes]
+command = "/opt/llama.cpp/main -m /opt/models/ggml-Hermes-2-step2559-q4_K_M.bin -ins -ngl 100"
+prompt = "> "
 ```
 

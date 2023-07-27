@@ -4,8 +4,8 @@ from pexpect.popen_spawn import PopenSpawn
 import io
 from signal import SIGTERM
 
-class ReplControler:
-    "REPL controler"
+class ReplController:
+    "REPL controller"
 
     def __init__(self, command, prompt, encoding=None):
         self.command = command
@@ -43,13 +43,13 @@ class ReplControler:
 
 
 if __name__=="__main__":
-    with ReplControler('python3 -i', '>>> ') as p:
+    with ReplController('python3 -i', '>>> ') as p:
         print(f"-->{p.send('7*6')}<--")
         print(f"-->{p.send('2**8')}<--")
         x = p.send(r'print("A\nB\nC")')
         print(f"-->{x}<--")
 
-    with ReplControler('/home/mobarski/repo-other/llama.cpp/main -m /home/mobarski/ggml-Hermes-2-step2559-q4_K_M.bin -ins -ngl 100', '> ') as p:
+    with ReplController('/home/mobarski/repo-other/llama.cpp/main -m /home/mobarski/ggml-Hermes-2-step2559-q4_K_M.bin -ins -ngl 100', '> ') as p:
         print(p.send('Compare FitD and PbtA.'))
         print(p.send('Compare Linux and MacOS.'))
-        print(p.send('Compare FitD and PbtA.'))
+        print(p.send('Tell a joke.'))
