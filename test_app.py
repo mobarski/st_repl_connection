@@ -12,7 +12,7 @@ for msg in ss.history:
     
 prompt = st.chat_input('Your message or /clear')
 if prompt == '/clear':
-    model.reset()
+    #model.reset() # TODO: ensure propper app shutdown
     ss.history = []
     st.experimental_rerun()
 elif prompt:
