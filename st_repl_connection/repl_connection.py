@@ -40,3 +40,6 @@ class ReplConnection(ExperimentalBaseConnection):
 
     def _send(self, text):
         return self._instance.send(text)
+
+    def reset(self):
+        self._instance.reset()

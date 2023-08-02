@@ -42,10 +42,18 @@ st.write(resp)
 
 #### query()
 
-`app.query(text, ttl=None) -> str`
+`connection.query(text, ttl=None) -> str`
 
 - `text` - text to send to the application
 - `ttl` - cache the response for `ttl` seconds, `None` -> no caching
+
+
+
+#### reset()
+
+`connection.reset()`
+
+Resets the connection by re-running the REPL application.
 
 
 
@@ -147,7 +155,7 @@ You can find more information about managing connections in [this section](docs.
 
 ##### llama.cpp running the Hermes model on a GPU
 
-```
+```toml
 [connections.llama_cpp_hermes]
 command = "/opt/llama.cpp/main -m /opt/models/ggml-Hermes-2-step2559-q4_K_M.bin -ins -ngl 100"
 prompt = "> "
@@ -157,7 +165,7 @@ prompt = "> "
 
 ##### python running the turtle module
 
-```
+```toml
 [connections.repl_turtle]
 command = "python3 -i -c 'from turtle import *; home()'"
 prompt = ">>> "
@@ -167,7 +175,7 @@ prompt = ">>> "
 
 ##### sqlite
 
-```
+```toml
 [connections.repl_sqlite]
 command = "sqlite3 -box -header"
 prompt = "sqlite> "

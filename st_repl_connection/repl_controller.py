@@ -22,6 +22,10 @@ class ReplController:
         out = f.read()[:-len(self.prompt)]
         return out
 
+    def reset(self):
+        self._stop()
+        self._start()
+
     def _start(self):
         self.proc = PopenSpawn(self.command, encoding=self.encoding)
         self.proc.logfile_read = f = io.StringIO()
@@ -29,17 +33,18 @@ class ReplController:
         f.seek(0)
         self._start_log = f.read()[:-len(self.prompt)]
 
-    def __enter__(self):
-        return self
-
-    def __exit__(self, *args):
-        from time import sleep
+    def _stop(self):
         self.proc.logfile_read = f = io.StringIO()
         self.proc.kill(SIGTERM)
         self.proc.wait()
         f.seek(0)
         out = f.read()
-        print(out)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):        
+        self.stop()
 
 
 if __name__=="__main__":
